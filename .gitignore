@@ -1,0 +1,20 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Local training artifacts
+data/
+src/model/weights/*.pt
+
+# Documentation
+docs/
+
+# OS files
+.DS_Store

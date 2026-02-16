@@ -1,0 +1,1 @@
+"""MNIST Vision Explorer package."""

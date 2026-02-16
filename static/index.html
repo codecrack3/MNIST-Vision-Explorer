@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MNIST Vision Explorer</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <h1>MNIST Vision Explorer</h1>
+      <button id="refresh-status" class="secondary" aria-label="Refresh model status">Refresh Status</button>
+    </header>
+
+    <main class="layout">
+      <section class="panel draw-panel">
+        <h2>Drawing Canvas</h2>
+        <canvas id="draw-canvas" width="280" height="280" aria-label="Draw a digit here"></canvas>
+        <div class="controls">
+          <button id="clear-canvas" aria-label="Clear canvas">Clear</button>
+          <button id="random-canvas" class="secondary" aria-label="Generate random strokes">Random</button>
+          <button id="predict-now" class="secondary" aria-label="Run prediction">Predict</button>
+        </div>
+        <div class="status-line" id="draw-status" aria-live="polite">Draw a digit to start.</div>
+      </section>
+
+      <section class="panel prediction-panel">
+        <h2>Prediction</h2>
+        <div class="prediction-main">
+          <span class="label">Digit</span>
+          <span id="predicted-digit" class="digit" aria-live="polite">-</span>
+          <span id="prediction-confidence" class="confidence">confidence: -</span>
+        </div>
+        <div id="prob-bars" class="prob-bars" role="list" aria-label="Probability distribution"></div>
+      </section>
+
+      <section class="panel preview-panel">
+        <h2>Preprocessed Input (28x28)</h2>
+        <canvas id="preview-canvas" width="140" height="140" aria-label="Preprocessed 28x28 input"></canvas>
+      </section>
+
+      <section class="panel activations-panel">
+        <div class="panel-header">
+          <h2>Layer Activations</h2>
+          <button id="refresh-activations" class="secondary" aria-label="Refresh activations">Refresh</button>
+        </div>
+        <h3>Conv1 (16 x 13x13)</h3>
+        <div id="conv1-grid" class="feature-grid" role="img" aria-label="Conv1 activation maps"></div>
+        <h3>Conv2 (32 x 5x5)</h3>
+        <div id="conv2-grid" class="feature-grid" role="img" aria-label="Conv2 activation maps"></div>
+        <h3>FC1 (128)</h3>
+        <canvas id="fc1-canvas" width="640" height="120" aria-label="FC1 activation bars"></canvas>
+      </section>
+
+      <section class="panel filters-panel">
+        <div class="panel-header">
+          <h2>Learned Filters</h2>
+          <button id="refresh-filters" class="secondary" aria-label="Refresh filters">Refresh</button>
+        </div>
+        <h3>Conv1 Filters (16 x 3x3)</h3>
+        <div id="conv1-filters" class="feature-grid" role="img" aria-label="Conv1 learned filters"></div>
+        <h3>Conv2 Summary (mean abs over channels)</h3>
+        <div id="conv2-filters" class="feature-grid" role="img" aria-label="Conv2 filter summary"></div>
+      </section>
+
+      <section class="panel weights-panel">
+        <div class="panel-header">
+          <h2>Weight Distributions</h2>
+          <button id="refresh-weights" class="secondary" aria-label="Refresh weight distributions">Refresh</button>
+        </div>
+        <div id="weights-container" class="weights-grid" role="img" aria-label="Weight distribution histograms"></div>
+      </section>
+
+      <section class="panel training-panel">
+        <h2>Model Training</h2>
+        <form id="training-form">
+          <label>
+            Epochs
+            <input type="number" id="epochs" min="1" max="20" value="3" />
+          </label>
+          <label>
+            Batch Size
+            <input type="number" id="batch-size" min="16" max="512" value="128" />
+          </label>
+          <label>
+            Learning Rate
+            <input type="number" id="lr" step="0.0001" min="0.0001" max="1" value="0.001" />
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" id="force-restart" />
+            Force restart active training
+          </label>
+          <button type="submit">Start Training</button>
+        </form>
+        <pre id="model-status" class="status-dump" aria-live="polite">Loading status...</pre>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

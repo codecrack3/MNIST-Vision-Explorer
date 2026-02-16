@@ -1,0 +1,32 @@
+[project]
+name = "mnist-vision-explorer"
+version = "0.1.0"
+description = "Interactive MNIST visualization and prediction explorer"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "torch",
+    "torchvision",
+    "fastapi",
+    "uvicorn[standard]",
+    "numpy",
+    "pillow",
+    "httpx",
+    "python-multipart",
+]
+
+[project.scripts]
+serve = "src.api.main:run_server"
+train = "src.model.trainer:run_training_cli"
+
+[dependency-groups]
+dev = [
+    "pytest",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
